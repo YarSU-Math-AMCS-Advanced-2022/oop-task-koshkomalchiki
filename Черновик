@@ -1,0 +1,8 @@
+class profile:
+    def __init__(self, username, userage):
+        self.name = username
+        self.age = userage
+    def getName(self):
+        return profile.__name__
+d = profile("Nikita")
+print(d)
