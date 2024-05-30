@@ -317,17 +317,17 @@ def Account_Functions(login):
     
     it = int(input())
     
-    match it:
-        case 1:
+    
+    if it == 1:
             profile.get_information_about_profile()
             
-        case 2:
+    if it == 2:
             profile.show_news()
             
-        case 3:
+    if it == 3:
             print("Функция в разработке")
             
-        case 4:
+    if it == 4:
             print("Друзья")
             print("1. Добавить в друзья")
             print("2. Удалить из друзей")
@@ -338,97 +338,96 @@ def Account_Functions(login):
             #for f in profile.get_friends():
             #   f. get_information_about_profile()
             func_friends(profile)
-        case 5:
+    if it == 5:
             print("Функция в разработке")
-        case 6:
+    if it == 6:
             print("Функция в разработке")
-        case 7:
+    if it == 7:
             print("Функция в разработке")
-        case 8:
+    if it == 8:
             print("Ждем назад, до свидания")
 
 def func_friends(profile):
-    add_type = int(input())
-    match add_type :
+    it = int(input())
         #"1. Добавить в друзья"
-        case 1:
-            if len(globaly_data_base) == 1:
-                print("В ВКонтакте зарегистрированы только вы, добавлять в друзья некого")
-            else:
-                fr_count = 0
-                for friend in profile.get_apply_friends():
-                    fr_count += 1
-                    print(  fr_count, friend.get_name(), 
-                            friend.get_surname(),
-                            friend.get_middle_name()
-                        )
-                print("1. Добавить в друзья всех")
-                print("2. Никого не добавлять")
-                print("3. Добавить некоторых") 
-                it = int(input())
-                match it:
-                    case 1:
-                        for friend in profile.get_apply_friends():
-                            profile.add_friend(friend)
-                        print("Добавлены все")
-                    case 2:
-                        print("Вы никого не добавили")
-                    case 3:
-                        print("Перечислите номера тех, кого вы хотите добавить сейчас:")
-                        some_friends = list(map(int, input().split()))
+    if it ==  1:
+        if len(globaly_data_base) == 1:
+            print("В ВКонтакте зарегистрированы только вы, добавлять в друзья некого")
+        else:
+            fr_count = 0
+            for friend in profile.get_apply_friends():
+                fr_count += 1
+                print(  fr_count, friend.get_name(), 
+                        friend.get_surname(),
+                        friend.get_middle_name()
+                    )
+            print("1. Добавить в друзья всех")
+            print("2. Никого не добавлять")
+            print("3. Добавить некоторых") 
+            it = int(input())
+            match it:
+                case 1:
+                    for friend in profile.get_apply_friends():
+                        profile.add_friend(friend)
+                    print("Добавлены все")
+                case 2:
+                    print("Вы никого не добавили")
+                case 3:
+                    print("Перечислите номера тех, кого вы хотите добавить сейчас:")
+                    some_friends = list(map(int, input().split()))
 
-                        for i in range(profile.num_apply_friends()):
-                            if i+1 in some_friends:
-                                profile.add_friend(profile.get_apply_friends()[i])
-        #"2. Удалить из друзей"
-        case 2:
-            print("Введите имя, фамилию, отчество пользователя, которого хотите удалить из друзей")
-            name, surname, middle_name = input().split()
-            flag = True
-            for account in globaly_data_base.values():
-                if  account.get_name() == name and \
-                    account.get_surname() == surname and \
-                    account.get_middle_name() == middle_name:
-                        profile.exclude_friend(account)
-                        print(  "Вы удалили: ", 
-                                account.get_name(),
+                    for i in range(profile.num_apply_friends()):
+                        if i+1 in some_friends:
+                            profile.add_friend(profile.get_apply_friends()[i])
+    #"2. Удалить из друзей"
+    if it == 2:
+        print("Введите имя, фамилию, отчество пользователя, которого хотите удалить из друзей")
+        name, surname, middle_name = input().split()
+        flag = True
+        for account in globaly_data_base.values():
+            if  account.get_name() == name and \
+                account.get_surname() == surname and \
+                account.get_middle_name() == middle_name:
+                    profile.exclude_friend(account)
+                    print(  "Вы удалили: ", 
+                            account.get_name(),
+                            account.get_surname(), 
+                            account.get_middle_name()
+                        )
+                    flag = False 
+        if flag:
+            print("В ваших друзьях на было такого пользователя")
+    if it == 3:    
+        print("Введите имя, фамилию, отчество пользователя, кому хотите подать заявку в друзья")
+        name, surname, middle_name = input().split()
+        flag = True
+        flag1 = True 
+        for account in globaly_data_base.values():
+            if  account.get_name() == name and \
+                account.get_surname() == surname and \
+                account.get_middle_name() == middle_name:
+                    if not(profile in account.get_apply_friends()):
+                        account.inc_apply_friends(profile)
+                        print(  "Вы подали завку в друзья пользователю: ", 
+                                account.get_name(), 
                                 account.get_surname(), 
                                 account.get_middle_name()
                             )
-                        flag = False 
-            if flag:
-                print("В ваших друзьях на было такого пользователя")
-        case 3:    
-            print("Введите имя, фамилию, отчество пользователя, кому хотите подать заявку в друзья")
-            name, surname, middle_name = input().split()
-            flag = True
-            flag1 = True 
-            for account in globaly_data_base.values():
-                if  account.get_name() == name and \
-                    account.get_surname() == surname and \
-                    account.get_middle_name() == middle_name:
-                        if not(profile in account.get_apply_friends()):
-                            account.inc_apply_friends(profile)
-                            print(  "Вы подали завку в друзья пользователю: ", 
-                                    account.get_name(), 
-                                    account.get_surname(), 
-                                    account.get_middle_name()
-                                )
-                        else: 
-                            print("Вы уже подавали заявку в друзья этому пользователю")
-                        flag = False
-                        
-            if flag:
-                print("такого пользователя нет")
-        case 4:
-            if profile.num_apply_friends() == 0:
-                print ("Заявок в друзья нет")
-            else:
-                print("Заявки в друзья", profile.num_apply_friends())
-        case 5:
-            for f in profile.get_friends():
-                f. get_information_about_profile()
-                print()
+                    else: 
+                        print("Вы уже подавали заявку в друзья этому пользователю")
+                    flag = False
+                    
+        if flag:
+            print("такого пользователя нет")
+    if it == 4:
+        if profile.num_apply_friends() == 0:
+            print ("Заявок в друзья нет")
+        else:
+            print("Заявки в друзья", profile.num_apply_friends())
+    if it ==  5:
+        for f in profile.get_friends():
+            f. get_information_about_profile()
+            print()
                             
                     
                 
