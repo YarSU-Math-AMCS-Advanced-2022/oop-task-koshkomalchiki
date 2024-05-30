@@ -1,6 +1,6 @@
-import copy
 
-class funcs_user_page:
+import copy
+class profile:
     """Реализация функций страницы пользователя"""
     def __init__ (self, new_name, new_surname, new_middle_name):
         """Личная информация пользователя."""
@@ -20,12 +20,35 @@ class funcs_user_page:
         self.favorite_films = []
         self.favorite_music = []
         self.favorite_books = []
-
+        self.apply_friends = []
+        self.app_fr = 0
 
         """Информация o странице пользователя."""
         self.friends = []
         self.posts = []
         self.subscribers = []
+        self.active_new_list=[]
+        self.active_messengers = dict()
+        self.new_messengers = 0
+        self.new_visitors = 0
+    def get_information_about_profile(self):
+        print("Full name", end=': ')
+        print(self.name, end=' ')
+        print(self.name, end=' ')
+        print(self.middle_name, end=' ')
+        
+    def get_new_messengers(self):
+        to_r = self.new_messengers
+        self.new_messengers=0
+        return to_r
+    def get_new_visiotrs(self):
+        to_r = self.new_visitors
+        self.new_visitors=0
+        return to_r
+    def show_news(self):
+        for c in self.active_new_list:
+            print(c)
+        self.active_new_list.clear()
 
     """Имя"""
     def get_name(self):
@@ -147,8 +170,6 @@ class funcs_user_page:
 
     def exclude_film(self, film):
         self.favorite_films.remove(self.favorite_films.index(film))
-        
-
     """Музыка"""
     def add_music(self, new_music):
         self.favorite_music.append(new_music)
@@ -168,9 +189,6 @@ class funcs_user_page:
 
     def exclude_music(self, music):
         self.favorite_music.remove(self.favorite_music.index(music))
-
-
-
     """Книги"""
     def add_books(self, new_books):
         self.favorite_books.append(new_books)
@@ -214,7 +232,13 @@ class funcs_user_page:
 
     def exclude_friend(self, friend):
         self.friends.remove(self.friends.index(friend))
-
+    def inc_apply_friends(self, friend):
+        self.app_fr += 1
+        self.apply_friends.append(friend)  
+    def get_apply_friends(self):
+        return self.apply_friends
+    def num_apply_friends(self):
+        return self.app_fr
     """Посты"""
     def add_posts(self, new_post):
         self.posts.append(new_post)
@@ -251,3 +275,188 @@ class funcs_user_page:
                 print(self.subscribers[i])
         else:
             print("Подписчиков нет.")
+
+globaly_data_base = dict()
+globaly_access = dict()
+accounts = []
+Now_in_some_account=False
+def add_account():
+    print("Введите имя нового пользователя")
+    name = input()
+    print("Введите фамилию нового пользователя")
+    surname=input()
+    print("Введите отчество нового пользователя")
+    middlename=input()
+    print("Введите логин")
+    login=input()
+    print("Введите пароль")
+    password=input()
+    print("Новый пользователь создан")
+    New_Account = profile(name, surname, middlename)
+    
+    globaly_access[login]=password
+    globaly_data_base[login]=New_Account
+    accounts.append(New_Account)
+    return
+def Account_Functions(login):
+    print("Рады видеть вас снова в сети")
+    profile = globaly_data_base[login]
+    print("У вас целых",end=' ')
+    print(profile.get_new_messengers(), end=' ')
+    print("новых сообщений")
+    print("За последние несколько часов вашу страницу посетили", end=' ')
+    print(profile.get_new_visiotrs(), end=' ')
+    print("человек")
+    print("1. Мой профиль")
+    print("2. Новостная лента")
+    print("3. Сообщения")
+    print("4. Друзья")
+    print("5. Группы")
+    print("6. Музыка")
+    print("7. Выйти")
+    
+    it = int(input())
+    
+    match it:
+        case 1:
+            profile.get_information_about_profile()
+            
+        case 2:
+            profile.show_news()
+            
+        case 3:
+            print("Функция в разработке")
+            
+        case 4:
+            print("Друзья")
+            print("1. Добавить в друзья")
+            print("2. Удалить из друзей")
+            print("3. Подать заявку в друзья")
+            print("4. Заявки в друзья")
+            print("5 получить список друзей")
+            # для 5
+            #for f in profile.get_friends():
+            #   f. get_information_about_profile()
+            func_friends(profile)
+        case 5:
+            print("Функция в разработке")
+        case 6:
+            print("Функция в разработке")
+        case 7:
+            print("Функция в разработке")
+        case 8:
+            print("Ждем назад, до свидания")
+
+def func_friends(profile):
+    add_type = int(input())
+    match add_type :
+        #"1. Добавить в друзья"
+        case 1:
+            if len(globaly_data_base) == 1:
+                print("В ВКонтакте зарегистрированы только вы, добавлять в друзья некого")
+            else:
+                fr_count = 0
+                for friend in profile.get_apply_friends():
+                    fr_count += 1
+                    print(  fr_count, friend.get_name(), 
+                            friend.get_surname(),
+                            friend.get_middle_name()
+                        )
+                print("1. Добавить в друзья всех")
+                print("2. Никого не добавлять")
+                print("3. Добавить некоторых") 
+                it = int(input())
+                match it:
+                    case 1:
+                        for friend in profile.get_apply_friends():
+                            profile.add_friend(friend)
+                        print("Добавлены все")
+                    case 2:
+                        print("Вы никого не добавили")
+                    case 3:
+                        print("Перечислите номера тех, кого вы хотите добавить сейчас:")
+                        some_friends = list(map(int, input().split()))
+
+                        for i in range(profile.num_apply_friends()):
+                            if i+1 in some_friends:
+                                profile.add_friend(profile.get_apply_friends()[i])
+        #"2. Удалить из друзей"
+        case 2:
+            print("Введите имя, фамилию, отчество пользователя, которого хотите удалить из друзей")
+            name, surname, middle_name = input().split()
+            flag = True
+            for account in globaly_data_base.values():
+                if  account.get_name() == name and \
+                    account.get_surname() == surname and \
+                    account.get_middle_name() == middle_name:
+                        profile.exclude_friend(account)
+                        print(  "Вы удалили: ", 
+                                account.get_name(),
+                                account.get_surname(), 
+                                account.get_middle_name()
+                            )
+                        flag = False 
+            if flag:
+                print("В ваших друзьях на было такого пользователя")
+        case 3:    
+            print("Введите имя, фамилию, отчество пользователя, кому хотите подать заявку в друзья")
+            name, surname, middle_name = input().split()
+            flag = True
+            flag1 = True 
+            for account in globaly_data_base.values():
+                if  account.get_name() == name and \
+                    account.get_surname() == surname and \
+                    account.get_middle_name() == middle_name:
+                        if not(profile in account.get_apply_friends()):
+                            account.inc_apply_friends(profile)
+                            print(  "Вы подали завку в друзья пользователю: ", 
+                                    account.get_name(), 
+                                    account.get_surname(), 
+                                    account.get_middle_name()
+                                )
+                        else: 
+                            print("Вы уже подавали заявку в друзья этому пользователю")
+                        flag = False
+                        
+            if flag:
+                print("такого пользователя нет")
+        case 4:
+            if profile.num_apply_friends() == 0:
+                print ("Заявок в друзья нет")
+            else:
+                print("Заявки в друзья", profile.num_apply_friends())
+        case 5:
+            for f in profile.get_friends():
+                f. get_information_about_profile()
+                print()
+                            
+                    
+                
+    
+def welcome_function():
+    while True:
+        print("Добро пожаловать в социальную сеть вконтакте")
+        print("Доступные функции для пользователя:")
+        print("1. Создать аккаунт")
+        print("2. Войти в уже существующий аккаунт")
+        print("3. Завершить программу.")
+        it=int(input())
+        if it == 3:
+            exit()
+        if it==1:
+            add_account()
+        else:
+            print("Введите логин и пробель через enter")
+            try_login = input()
+            if (try_login in globaly_access):
+                Now_in_some_account = True
+                password = input()
+                if (globaly_access[try_login] == password):
+                    Account_Functions(try_login)
+                else:
+                    print("Неверный логин или пароль")
+            else:
+                print("Неверный логин или пароль")
+
+first_profile = profile("nikita", "artur", "pavlovich")
+welcome_function()
