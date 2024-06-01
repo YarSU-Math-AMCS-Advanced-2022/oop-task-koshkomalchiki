@@ -80,11 +80,13 @@ class Like(Reaction):
 
     # Соответствует действию "поставить данную реакцию"
     def _plus_one_reaction(self):
-        self.update_amount(1)
+        self._update_amount(1)
 
     # Соответствует действию "убрать данную реакцию"
     def _minus_one_reaction(self):
-        self.update_amount(-1)
+        # Хеширование. Отслеживается наличием реакции от человека
+        if self.amount - 1 >= 0:
+            self._update_amount(-1)
 
 
 # Рекция - "Смешно"
@@ -148,11 +150,13 @@ class Funny(Reaction):
 
     # Соответствует действию "поставить данную реакцию"
     def _plus_one_reaction(self):
-        self.update_amount(1)
+        self._update_amount(1)
 
     # Соответствует действию "убрать данную реакцию"
     def _minus_one_reaction(self):
-        self.update_amount(-1)
+        # Хеширование. Отслеживается наличием реакции от человека
+        if self.amount - 1 >= 0:
+            self._update_amount(-1)
 
 
 # Рекция - "Ого!"
@@ -216,11 +220,13 @@ class Wow(Reaction):
 
     # Соответствует действию "поставить данную реакцию"
     def _plus_one_reaction(self):
-        self.update_amount(1)
+        self._update_amount(1)
 
     # Соответствует действию "убрать данную реакцию"
     def _minus_one_reaction(self):
-        self.update_amount(-1)
+        # Хеширование. Отслеживается наличием реакции от человека
+        if self.amount - 1 >= 0:
+            self._update_amount(-1)
 
 
 # Рекция - "Восторг"
@@ -284,11 +290,13 @@ class Delight(Reaction):
 
     # Соответствует действию "поставить данную реакцию"
     def _plus_one_reaction(self):
-        self.update_amount(1)
+        self._update_amount(1)
 
     # Соответствует действию "убрать данную реакцию"
     def _minus_one_reaction(self):
-        self.update_amount(-1)
+        # Хеширование. Отслеживается наличием реакции от человека
+        if self.amount - 1 >= 0:
+            self._update_amount(-1)
 
 
 # Рекция - "Печаль"
@@ -352,11 +360,13 @@ class Sadness(Reaction):
 
     # Соответствует действию "поставить данную реакцию"
     def _plus_one_reaction(self):
-        self.update_amount(1)
+        self._update_amount(1)
 
     # Соответствует действию "убрать данную реакцию"
     def _minus_one_reaction(self):
-        self.update_amount(-1)
+        # Хеширование. Отслеживается наличием реакции от человека
+        if self.amount - 1 >= 0:
+            self._update_amount(-1)
 
 
 # Рекция - "!@#$%"; "Недовольство"
@@ -420,8 +430,10 @@ class Outrage(Reaction):
 
     # Соответствует действию "поставить данную реакцию"
     def _plus_one_reaction(self):
-        self.update_amount(1)
+        self._update_amount(1)
 
     # Соответствует действию "убрать данную реакцию"
     def _minus_one_reaction(self):
-        self.update_amount(-1)
+        # Хеширование. Отслеживается наличием реакции от человека
+        if self.amount - 1 >= 0:
+            self._update_amount(-1)
