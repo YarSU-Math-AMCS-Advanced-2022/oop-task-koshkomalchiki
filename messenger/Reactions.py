@@ -1,4 +1,6 @@
-# from typing import Any
+from typing import Any
+# from Checkers import Checkers
+# from OptionsMenu import OptionsMenu
 import Reaction
 
 
@@ -29,7 +31,7 @@ class Reactions:
 
     # Вычисляет максимальную длину слов-ключей словаря
     @staticmethod
-    def _mx_len_key_word(dictionary) -> int:
+    def _mx_len_key_word(dictionary: dict[str, Any]) -> int:
         return max([len(word) for word in dictionary.keys()])
 
     # Задаёт набор реакций
@@ -142,8 +144,8 @@ class Reactions:
         return int(reaction_number) - 1
 
     # Взаимодействие с реакциями через консольный интерфейст
-    def interact_with_reactions(self):
+    def interact(self):
         selected_reaction = self._select_reaction()
         if selected_reaction is not None:
             self.__select_action_of_reaction(selected_reaction)
-            self.interact_with_reactions()
+            self.interact()
