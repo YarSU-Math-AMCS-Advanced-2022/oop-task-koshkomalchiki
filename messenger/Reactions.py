@@ -121,7 +121,7 @@ class Reactions:
     def _select_reaction(self) -> int | None:
         print('Выберите рекцию:')
         for index, info in enumerate(self.get_reactions().items()):
-            # 8 -> self.__mx_len_reactions_name
+            # [!] 8 -> self.__mx_len_reactions_name
             print(f'  [ {index + 1} ] {info[0]:8}\t+{info[1]}')
         print('  [ .. ] Назад')
 
@@ -141,7 +141,7 @@ class Reactions:
 
         return int(reaction_number) - 1
 
-    # Взаимодействие пользователя с реакциями
+    # Взаимодействие с реакциями через консольный интерфейст
     def interact_with_reactions(self):
         selected_reaction = self._select_reaction()
         if selected_reaction is not None:
