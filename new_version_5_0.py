@@ -17,26 +17,26 @@ global_news = ["Компания-разработчик смартфонов п�
                "Местная больница первой в стране внедрила систему удаленного мониторинга пациентов с помощью носимых устройств",
                "В новом жилом комплексе оборудуют умные квартиры с интегрированными системами управления светом, климатом и безопасностью",
                "Городской транспорт планирует запуск электробусов на всех маршрутах к концу следующего года для улучшения экологической обстановки"]
-global_VK_tracks = ["1.  Serves You Right                   — Diamante",
-                    "2.  White Flag                         — Normandie",
-                    "3.  Roundtable Rival                   — Lindsey Stirling",
-                    "4.  Thnks fr th Mmrs                   — Fall Out Boy",
-                    "5.  I Hate Everything About You        — Three Days Grace",
-                    "6.  Ангел или демон                    — СЛОТ",
-                    "7.  Evidence Acoustic Version          — Prime Circle",
-                    "8.  Shook — Thousand Foot Krutch ve Me — About Monsters",
-                    "9.  feat. Oscar Porter                 — Shallowsky, Oscar Porter",
-                    "10. Her Last Suggestions               — Staple R",
-                    "11. Feel                               — Lies of P",
-                    "12. CAST AWAY                          — From Fall to Spring",
-                    "13. Paradox ( Vinland Saga ) Cover     — Binou SZ, Aoi Shiro",
-                    "14. Whispers in the Dark Radio Edit    — Skillet",
-                    "15. Температура                        — Три дня дождя, polnalyubvi",
-                    "16. Wildfire (Russian Ver.)            — Sati Akura",
-                    "17. DARK ARIA - Hardstyle              — Enmity, crypvolk",
-                    "18. Снег в большом городе              — STERVELL",
-                    "19. We Are Our Mountains               — Michael Night",
-                    "20. The Scarlett Syndrome              — Leader"
+global_VK_tracks = ["1. Serves You Right                   — Diamante\n",
+                    "2. White Flag                         — Normandie\n",
+                    "3. Roundtable Rival                   — Lindsey Stirling\n",
+                    "4. Thnks fr th Mmrs                   — Fall Out Boy\n",
+                    "5. I Hate Everything About You        — Three Days Grace\n",
+                    "6. Ангел или демон                    — СЛОТ\n",
+                    "7. Evidence Acoustic Version          — Prime Circle\n",
+                    "8. Shook — Thousand Foot Krutch ve Me — About Monsters\n",
+                    "9. feat. Oscar Porter                 — Shallowsky, Oscar Porter\n",
+                    "10. Her Last Suggestions               — Staple R\n",
+                    "11. Feel                               — Lies of P\n",
+                    "12. CAST AWAY                          — From Fall to Spring\n",
+                    "13. Paradox ( Vinland Saga ) Cover     — Binou SZ, Aoi Shiro\n",
+                    "14. Whispers in the Dark Radio Edit    — Skillet\n",
+                    "15. Температура                        — Три дня дождя, polnalyubvi\n",
+                    "16. Wildfire (Russian Ver.)            — Sati Akura\n",
+                    "17. DARK ARIA - Hardstyle              — Enmity, crypvolk\n",
+                    "18. Снег в большом городе              — STERVELL\n",
+                    "19. We Are Our Mountains               — Michael Night\n",
+                    "20. The Scarlett Syndrome              — Leader\n"
                     ]
 Now_in_some_account = False
 
@@ -328,6 +328,7 @@ class profile:
     """Стена"""
 
     def interact_with_wall(self):
+        print('~~~ Общая стена ~~~')
         self.wall.interact()
 
     """Подписчики"""
@@ -442,7 +443,6 @@ def add_account(globaly_users):
 
 
 def Account_Functions(login):
-    print('[!]')
     print("Рады видеть вас снова в сети")
     profile = globaly_data_base[login]
     print("У вас целых", end=' ')
@@ -452,7 +452,6 @@ def Account_Functions(login):
     print(profile.get_new_visiotrs(), end=' ')
     print("человек")
     while True:
-        print('[!]')
         print("1. Мой профиль")
         print("2. Новостная лента")
         print("3. Сообщения")
@@ -547,7 +546,7 @@ def music(prof):
 
             print("Выбирите номера треков, которые вы хотели бы добавить к cebe на страницу")
 
-            music = list(map(int, input().split()))
+            music = list(map(str, input().split()))
 
             for i in range(len(global_VK_tracks)):
                 if i + 1 in music:
@@ -848,7 +847,6 @@ def welcome_function():
         print("1. Создать аккаунт")
         print("2. Войти в уже существующий аккаунт")
         print("3. Завершить программу.")
-        print('[!]')
         it = int(input())
 
         if it == 3:
@@ -864,7 +862,6 @@ def welcome_function():
                 Now_in_some_account = True
                 password = input()
                 if (globaly_access[try_login] == password):
-                    print('[!]')
                     Account_Functions(try_login)
                 else:
                     print("Неверный логин или пароль")
